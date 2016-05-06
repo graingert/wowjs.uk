@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
+          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>'
         }
       },
       options: {
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>.js'],
+      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>'],
       options : {
         specs   : 'spec/javascripts/**/*.js',
         helpers : 'spec/javascripts/helpers/**/*.js'
