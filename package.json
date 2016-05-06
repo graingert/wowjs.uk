@@ -18,10 +18,7 @@
   "bugs" : {
     "url" : "https://github.com/graingert/WOW/issues"
   },
-  "licenses": [{
-    "type": "MIT",
-    "url": "http://matthieuaussaguel.mit-license.org/"
-  }],
+  "license": "MIT",
   "devDependencies" : {
     "grunt"                : "latest",
     "grunt-cli"            : "latest",
