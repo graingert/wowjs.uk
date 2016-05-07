@@ -105,7 +105,7 @@ effects.
 
 ## Contribute
 
-The library is written in CoffeeScript, please update `wow.coffee` file.
+The library is transpiled using Babel, please update `wow.js` file.
 
 We use grunt to compile and minify the library:
 

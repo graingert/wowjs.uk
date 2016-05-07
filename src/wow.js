@@ -395,4 +395,5 @@ return WOW;
 }
 
 const WOW = fact.call(window);
-export { WOW }
+export { WOW };
+export default WOW;
