@@ -5,12 +5,19 @@
   "main": "dist/wow.js",
   "description": "",
   "keywords": [],
-  "homepage": "",
-  "author": {
-    "name": "Matthieu Aussaguel",
-    "email": "matthieu.aussaguel@gmail.com",
-    "url": "http://mynameismatthieu.com/"
-  },
+  "homepage": "https://graingert.co.uk/WOW/",
+  "contributors": [
+    {
+      "name": "Matthieu Aussaguel",
+      "email": "matthieu.aussaguel@gmail.com",
+      "url": "http://mynameismatthieu.com/"
+    },
+    {
+      "name": "Thomas Grainger",
+      "email": "wow.js@graingert.co.uk",
+      "url": "https://graingert.co.uk/"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/graingert/WOW.git"

@@ -1,4 +1,4 @@
-# WOW.js [![Build Status](https://secure.travis-ci.org/matthieua/WOW.svg?branch=master)](http://travis-ci.org/matthieua/WOW)
+# WOW.js [![Build Status](https://secure.travis-ci.org/graingert/WOW.svg?branch=master)](http://travis-ci.org/graingert/WOW)
 
 Reveal CSS animation as you scroll down a page.
 By default, you can use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
@@ -10,9 +10,7 @@ Advantages:
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
 
-Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
-
-### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
+### [LIVE DEMO ➫](https://graingert.co.uk/WOW/)
 
 ## Live examples
 - [MaterialUp](http://www.materialup.com)
@@ -28,7 +26,7 @@ Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 ## Documentation
 
 It just take seconds to install and use WOW.js!
-[Read the documentation ➫](http://mynameismatthieu.com/WOW/docs.html)
+[Read the documentation ➫](https://graingert.co.uk/WOW/docs.html)
 
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
@@ -125,20 +123,20 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please report it [here on Github](https://github.com/matthieua/WOW/issues)!
+If you find a bug, please report it [here on Github](https://github.com/graingert/WOW/issues)!
 
 ## Developer
 
-Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.com)
+Originally Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.com)
+Forked to remain under the MIT license by Thomas Grainger, https://graingert.co.uk
 
-+ [@mattaussaguel](//twitter.com/mattaussaguel)
-+ [Github Profile](//github.com/matthieua)
++ [Github Profile](//github.com/graingert)
 
 ## Contributors
 
 Thanks to everyone who has contributed to the project so far:
 
 - Attila Oláh - [@attilaolah](//twitter.com/attilaolah) - [Github Profile](//github.com/attilaolah)
-- [and many others](//github.com/matthieua/WOW/graphs/contributors)
+- [and many others](//github.com/graingert/WOW/graphs/contributors)
 
 Initiated and designed by [Vincent Le Moign](//www.webalys.com/), [@webalys](//twitter.com/webalys)

@@ -41,13 +41,6 @@
     };
   }();
 
-  //
-  // Name    : wow
-  // Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-  // Version : 1.1.2
-  // Repo    : https://github.com/matthieua/WOW
-  // Website : http://mynameismatthieu.com/wow
-
   function fact() {
     var _class, _temp;
 
@@ -556,4 +549,5 @@
 
   var WOW = fact.call(window);
   exports.WOW = WOW;
+  exports.default = WOW;
 });
