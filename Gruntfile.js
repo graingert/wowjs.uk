@@ -1,6 +1,6 @@
 /*global module:false*/
 module.exports = function(grunt) {
-  mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'uglify']
+  mainTasks = ['babel', 'coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'uglify']
 
   // Project configuration.
   grunt.initConfig({
@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
+          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>'
         }
       },
       options: {
@@ -20,16 +20,18 @@ module.exports = function(grunt) {
         report: 'gzip'
       }
     },
-    coffee : {
-      plugin : {
-        files: [{
-          expand: true,
-          cwd: 'src/',
-          src: '*.coffee',
-          dest: 'dist/',
-          ext: '.js'
-        }]
+    babel : {
+      options : {
+        presets: ['es2015', 'stage-1'],
+        plugins: ["transform-es2015-modules-umd"]
       },
+      dist: {
+        files: {
+          'dist/wow.js': 'src/wow.js'
+        }
+      }
+    },
+    coffee : {
       specs : {
         files: [{
           expand: true,
@@ -50,7 +52,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>.js'],
+      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>'],
       options : {
         specs   : 'spec/javascripts/**/*.js',
         helpers : 'spec/javascripts/helpers/**/*.js'
@@ -81,9 +83,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-babel');
 
   grunt.registerTask('default', mainTasks);
 
   // Travis CI task.
-  grunt.registerTask('travis', ['coffee', 'jasmine']);
+  grunt.registerTask('travis', ['babel', 'coffee', 'jasmine']);
 };

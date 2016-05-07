@@ -24,12 +24,26 @@ Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 ## Version
 
-1.0.2
+1.1.2
 
 ## Documentation
 
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
+
+### Installation
+
+- Bower
+
+```bash
+   bower install wow-mit
+```
+
+- NPM
+
+```bash
+   npm install wow.js
+```
 
 ### Basic usage
 
@@ -64,7 +78,12 @@ var wow = new WOW(
     animateClass: 'animated', // animation css class (default is animated)
     offset:       0,          // distance to the element when triggering the animation (default is 0)
     mobile:       true,       // trigger animations on mobile devices (default is true)
-    live:         true        // act on asynchronously loaded content (default is true)
+    live:         true,       // act on asynchronously loaded content (default is true)
+    callback:     function(box) {
+      // the callback is fired every time an animation is started
+      // the argument that is passed in is the DOM node being animated
+    },
+    scrollContainer: null // optional scroll container selector, otherwise use window
   }
 );
 wow.init();
@@ -84,7 +103,7 @@ effects.
 
 ## Contribute
 
-The library is written in CoffeeScript, please update `wow.coffee` file.
+The library is transpiled using Babel, please update `wow.js` file.
 
 We use grunt to compile and minify the library:
 
