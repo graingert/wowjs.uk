@@ -410,5 +410,3 @@ export default class WOW {
     return !this.config.mobile && isMobile(navigator.userAgent);
   }
 }
-
-export { WOW };

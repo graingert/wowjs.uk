@@ -11,7 +11,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     eslint: {
-      target: ['src/wow.js']
+      target: ['src/WOW.js']
     },
     uglify: {
       dist: {
@@ -31,11 +31,14 @@ module.exports = function(grunt) {
     babel : {
       options : {
         presets: ['es2015', 'stage-1'],
-        plugins: ["transform-es2015-modules-umd"]
+        plugins: [
+          'add-module-exports',
+          "transform-es2015-modules-umd"
+        ]
       },
       dist: {
         files: {
-          'dist/wow.js': 'src/wow.js'
+          'dist/wow.js': 'src/WOW.js'
         }
       }
     },
