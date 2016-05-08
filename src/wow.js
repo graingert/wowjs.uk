@@ -2,77 +2,72 @@ function isIn(needle, haystack) {
   return haystack.indexOf(needle) >= 0;
 }
 
-class Util {
-  extend(custom, defaults) {
-    for (const key in defaults) {
-      if (custom[key] == null) {
-        const value = defaults[key];
-        custom[key] = value;
-      }
-    }
-    return custom;
-  }
-
-  isMobile(agent) {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
-  }
-
-  createEvent(event, bubble = false, cancel = false, detail = null) {
-    let customEvent;
-    if (document.createEvent != null) { // W3C DOM
-      customEvent = document.createEvent('CustomEvent');
-      customEvent.initCustomEvent(event, bubble, cancel, detail);
-    } else if (document.createEventObject != null) { // IE DOM < 9
-      customEvent = document.createEventObject();
-      customEvent.eventType = event;
-    } else {
-      customEvent.eventName = event;
-    }
-
-    return customEvent;
-  }
-
-  emitEvent(elem, event) {
-    if (elem.dispatchEvent != null) { // W3C DOM
-      elem.dispatchEvent(event);
-    } else if (event in (elem != null)) {
-      elem[event]();
-    } else if (`on${event}` in (elem != null)) {
-      elem[`on${event}`]();
+function extend(custom, defaults) {
+  for (const key in defaults) {
+    if (custom[key] == null) {
+      const value = defaults[key];
+      custom[key] = value;
     }
   }
+  return custom;
+}
 
-  addEvent(elem, event, fn) {
-    if (elem.addEventListener != null) { // W3C DOM
-      elem.addEventListener(event, fn, false);
-    } else if (elem.attachEvent != null) { // IE DOM
-      elem.attachEvent(`on${event}`, fn);
-    } else { // fallback
-      elem[event] = fn;
-    }
+function isMobile(agent) {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
+}
+
+function createEvent(event, bubble = false, cancel = false, detail = null) {
+  let customEvent;
+  if (document.createEvent != null) { // W3C DOM
+    customEvent = document.createEvent('CustomEvent');
+    customEvent.initCustomEvent(event, bubble, cancel, detail);
+  } else if (document.createEventObject != null) { // IE DOM < 9
+    customEvent = document.createEventObject();
+    customEvent.eventType = event;
+  } else {
+    customEvent.eventName = event;
   }
 
-  removeEvent(elem, event, fn) {
-    if (elem.removeEventListener != null) { // W3C DOM
-      elem.removeEventListener(event, fn, false);
-    } else if (elem.detachEvent != null) { // IE DOM
-      elem.detachEvent(`on${event}`, fn);
-    } else { // fallback
-      delete elem[event];
-    }
-  }
+  return customEvent;
+}
 
-  innerHeight() {
-    if ('innerHeight' in window) {
-      return window.innerHeight;
-    }
-
-    return document.documentElement.clientHeight;
+function emitEvent(elem, event) {
+  if (elem.dispatchEvent != null) { // W3C DOM
+    elem.dispatchEvent(event);
+  } else if (event in (elem != null)) {
+    elem[event]();
+  } else if (`on${event}` in (elem != null)) {
+    elem[`on${event}`]();
   }
 }
 
-const util = new Util();
+function addEvent(elem, event, fn) {
+  if (elem.addEventListener != null) { // W3C DOM
+    elem.addEventListener(event, fn, false);
+  } else if (elem.attachEvent != null) { // IE DOM
+    elem.attachEvent(`on${event}`, fn);
+  } else { // fallback
+    elem[event] = fn;
+  }
+}
 
+function removeEvent(elem, event, fn) {
+  if (elem.removeEventListener != null) { // W3C DOM
+    elem.removeEventListener(event, fn, false);
+  } else if (elem.detachEvent != null) { // IE DOM
+    elem.detachEvent(`on${event}`, fn);
+  } else { // fallback
+    delete elem[event];
+  }
+}
+
+function getInnerHeight() {
+  if ('innerHeight' in window) {
+    return window.innerHeight;
+  }
+
+  return document.documentElement.clientHeight;
+}
 
 function fact() {
   // Minimalistic WeakMap shim, just in case.
@@ -160,13 +155,13 @@ function fact() {
       this.scrollHandler = this.scrollHandler.bind(this);
       this.scrollCallback = this.scrollCallback.bind(this);
       this.scrolled = true;
-      this.config = this.util().extend(options, this.defaults);
+      this.config = extend(options, this.defaults);
       if (options.scrollContainer != null) {
         this.config.scrollContainer = document.querySelector(options.scrollContainer);
       }
     // Map of elements to animation names:
       this.animationNameCache = new WeakMap();
-      this.wowEvent = this.util().createEvent(this.config.boxClass);
+      this.wowEvent = createEvent(this.config.boxClass);
     }
 
     init() {
@@ -174,7 +169,7 @@ function fact() {
       if (isIn(document.readyState, ['interactive', 'complete'])) {
         this.start();
       } else {
-        this.util().addEvent(document, 'DOMContentLoaded', this.start);
+        addEvent(document, 'DOMContentLoaded', this.start);
       }
       this.finished = [];
     }
@@ -194,8 +189,8 @@ function fact() {
         }
       }
       if (!this.disabled()) {
-        this.util().addEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
-        this.util().addEvent(window, 'resize', this.scrollHandler);
+        addEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
+        addEvent(window, 'resize', this.scrollHandler);
         this.interval = setInterval(this.scrollCallback, 50);
       }
       if (this.config.live) {
@@ -219,8 +214,8 @@ function fact() {
   // unbind the scroll event
     stop() {
       this.stopped = true;
-      this.util().removeEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
-      this.util().removeEvent(window, 'resize', this.scrollHandler);
+      removeEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
+      removeEvent(window, 'resize', this.scrollHandler);
       if (this.interval != null) {
         clearInterval(this.interval);
       }
@@ -257,12 +252,12 @@ function fact() {
       this.applyStyle(box);
       box.className = `${box.className} ${this.config.animateClass}`;
       if (this.config.callback != null) { this.config.callback(box); }
-      this.util().emitEvent(box, this.wowEvent);
+      emitEvent(box, this.wowEvent);
 
-      this.util().addEvent(box, 'animationend', this.resetAnimation);
-      this.util().addEvent(box, 'oanimationend', this.resetAnimation);
-      this.util().addEvent(box, 'webkitAnimationEnd', this.resetAnimation);
-      this.util().addEvent(box, 'MSAnimationEnd', this.resetAnimation);
+      addEvent(box, 'animationend', this.resetAnimation);
+      addEvent(box, 'oanimationend', this.resetAnimation);
+      addEvent(box, 'webkitAnimationEnd', this.resetAnimation);
+      addEvent(box, 'MSAnimationEnd', this.resetAnimation);
 
       return box;
     }
@@ -406,19 +401,15 @@ function fact() {
         this.config.scrollContainer && this.config.scrollContainer.scrollTop
       ) || window.pageYOffset;
       const viewBottom =
-        viewTop + Math.min(this.element.clientHeight, this.util().innerHeight()) - offset;
+        viewTop + Math.min(this.element.clientHeight, getInnerHeight()) - offset;
       const top = this.offsetTop(box);
       const bottom = top + box.clientHeight;
 
       return top <= viewBottom && bottom >= viewTop;
     }
 
-    util() {
-      return util;
-    }
-
     disabled() {
-      return !this.config.mobile && this.util().isMobile(navigator.userAgent);
+      return !this.config.mobile && isMobile(navigator.userAgent);
     }
   }
   return WOW;

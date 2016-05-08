@@ -45,105 +45,86 @@
     return haystack.indexOf(needle) >= 0;
   }
 
-  var Util = function () {
-    function Util() {
-      _classCallCheck(this, Util);
+  function extend(custom, defaults) {
+    for (var key in defaults) {
+      if (custom[key] == null) {
+        var value = defaults[key];
+        custom[key] = value;
+      }
+    }
+    return custom;
+  }
+
+  function isMobile(agent) {
+    return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
+    );
+  }
+
+  function createEvent(event) {
+    var bubble = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+    var cancel = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+    var detail = arguments.length <= 3 || arguments[3] === undefined ? null : arguments[3];
+
+    var customEvent = void 0;
+    if (document.createEvent != null) {
+      // W3C DOM
+      customEvent = document.createEvent('CustomEvent');
+      customEvent.initCustomEvent(event, bubble, cancel, detail);
+    } else if (document.createEventObject != null) {
+      // IE DOM < 9
+      customEvent = document.createEventObject();
+      customEvent.eventType = event;
+    } else {
+      customEvent.eventName = event;
     }
 
-    _createClass(Util, [{
-      key: 'extend',
-      value: function extend(custom, defaults) {
-        for (var key in defaults) {
-          if (custom[key] == null) {
-            var value = defaults[key];
-            custom[key] = value;
-          }
-        }
-        return custom;
-      }
-    }, {
-      key: 'isMobile',
-      value: function isMobile(agent) {
-        return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
-        );
-      }
-    }, {
-      key: 'createEvent',
-      value: function createEvent(event) {
-        var bubble = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-        var cancel = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
-        var detail = arguments.length <= 3 || arguments[3] === undefined ? null : arguments[3];
+    return customEvent;
+  }
 
-        var customEvent = void 0;
-        if (document.createEvent != null) {
-          // W3C DOM
-          customEvent = document.createEvent('CustomEvent');
-          customEvent.initCustomEvent(event, bubble, cancel, detail);
-        } else if (document.createEventObject != null) {
-          // IE DOM < 9
-          customEvent = document.createEventObject();
-          customEvent.eventType = event;
-        } else {
-          customEvent.eventName = event;
-        }
+  function emitEvent(elem, event) {
+    if (elem.dispatchEvent != null) {
+      // W3C DOM
+      elem.dispatchEvent(event);
+    } else if (event in (elem != null)) {
+      elem[event]();
+    } else if ('on' + event in (elem != null)) {
+      elem['on' + event]();
+    }
+  }
 
-        return customEvent;
-      }
-    }, {
-      key: 'emitEvent',
-      value: function emitEvent(elem, event) {
-        if (elem.dispatchEvent != null) {
-          // W3C DOM
-          elem.dispatchEvent(event);
-        } else if (event in (elem != null)) {
-          elem[event]();
-        } else if ('on' + event in (elem != null)) {
-          elem['on' + event]();
-        }
-      }
-    }, {
-      key: 'addEvent',
-      value: function addEvent(elem, event, fn) {
-        if (elem.addEventListener != null) {
-          // W3C DOM
-          elem.addEventListener(event, fn, false);
-        } else if (elem.attachEvent != null) {
-          // IE DOM
-          elem.attachEvent('on' + event, fn);
-        } else {
-          // fallback
-          elem[event] = fn;
-        }
-      }
-    }, {
-      key: 'removeEvent',
-      value: function removeEvent(elem, event, fn) {
-        if (elem.removeEventListener != null) {
-          // W3C DOM
-          elem.removeEventListener(event, fn, false);
-        } else if (elem.detachEvent != null) {
-          // IE DOM
-          elem.detachEvent('on' + event, fn);
-        } else {
-          // fallback
-          delete elem[event];
-        }
-      }
-    }, {
-      key: 'innerHeight',
-      value: function innerHeight() {
-        if ('innerHeight' in window) {
-          return window.innerHeight;
-        }
+  function addEvent(elem, event, fn) {
+    if (elem.addEventListener != null) {
+      // W3C DOM
+      elem.addEventListener(event, fn, false);
+    } else if (elem.attachEvent != null) {
+      // IE DOM
+      elem.attachEvent('on' + event, fn);
+    } else {
+      // fallback
+      elem[event] = fn;
+    }
+  }
 
-        return document.documentElement.clientHeight;
-      }
-    }]);
+  function removeEvent(elem, event, fn) {
+    if (elem.removeEventListener != null) {
+      // W3C DOM
+      elem.removeEventListener(event, fn, false);
+    } else if (elem.detachEvent != null) {
+      // IE DOM
+      elem.detachEvent('on' + event, fn);
+    } else {
+      // fallback
+      delete elem[event];
+    }
+  }
 
-    return Util;
-  }();
+  function getInnerHeight() {
+    if ('innerHeight' in window) {
+      return window.innerHeight;
+    }
 
-  var _util = new Util();
+    return document.documentElement.clientHeight;
+  }
 
   function fact() {
     var _class, _temp;
@@ -261,13 +242,13 @@
         this.scrollHandler = this.scrollHandler.bind(this);
         this.scrollCallback = this.scrollCallback.bind(this);
         this.scrolled = true;
-        this.config = this.util().extend(options, this.defaults);
+        this.config = extend(options, this.defaults);
         if (options.scrollContainer != null) {
           this.config.scrollContainer = document.querySelector(options.scrollContainer);
         }
         // Map of elements to animation names:
         this.animationNameCache = new WeakMap();
-        this.wowEvent = this.util().createEvent(this.config.boxClass);
+        this.wowEvent = createEvent(this.config.boxClass);
       }
 
       _createClass(WOW, [{
@@ -277,7 +258,7 @@
           if (isIn(document.readyState, ['interactive', 'complete'])) {
             this.start();
           } else {
-            this.util().addEvent(document, 'DOMContentLoaded', this.start);
+            addEvent(document, 'DOMContentLoaded', this.start);
           }
           this.finished = [];
         }
@@ -300,8 +281,8 @@
             }
           }
           if (!this.disabled()) {
-            this.util().addEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
-            this.util().addEvent(window, 'resize', this.scrollHandler);
+            addEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
+            addEvent(window, 'resize', this.scrollHandler);
             this.interval = setInterval(this.scrollCallback, 50);
           }
           if (this.config.live) {
@@ -325,8 +306,8 @@
         key: 'stop',
         value: function stop() {
           this.stopped = true;
-          this.util().removeEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
-          this.util().removeEvent(window, 'resize', this.scrollHandler);
+          removeEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
+          removeEvent(window, 'resize', this.scrollHandler);
           if (this.interval != null) {
             clearInterval(this.interval);
           }
@@ -371,12 +352,12 @@
           if (this.config.callback != null) {
             this.config.callback(box);
           }
-          this.util().emitEvent(box, this.wowEvent);
+          emitEvent(box, this.wowEvent);
 
-          this.util().addEvent(box, 'animationend', this.resetAnimation);
-          this.util().addEvent(box, 'oanimationend', this.resetAnimation);
-          this.util().addEvent(box, 'webkitAnimationEnd', this.resetAnimation);
-          this.util().addEvent(box, 'MSAnimationEnd', this.resetAnimation);
+          addEvent(box, 'animationend', this.resetAnimation);
+          addEvent(box, 'oanimationend', this.resetAnimation);
+          addEvent(box, 'webkitAnimationEnd', this.resetAnimation);
+          addEvent(box, 'MSAnimationEnd', this.resetAnimation);
 
           return box;
         }
@@ -533,21 +514,16 @@
         value: function isVisible(box) {
           var offset = box.getAttribute('data-wow-offset') || this.config.offset;
           var viewTop = this.config.scrollContainer && this.config.scrollContainer.scrollTop || window.pageYOffset;
-          var viewBottom = viewTop + Math.min(this.element.clientHeight, this.util().innerHeight()) - offset;
+          var viewBottom = viewTop + Math.min(this.element.clientHeight, getInnerHeight()) - offset;
           var top = this.offsetTop(box);
           var bottom = top + box.clientHeight;
 
           return top <= viewBottom && bottom >= viewTop;
         }
       }, {
-        key: 'util',
-        value: function util() {
-          return _util;
-        }
-      }, {
         key: 'disabled',
         value: function disabled() {
-          return !this.config.mobile && this.util().isMobile(navigator.userAgent);
+          return !this.config.mobile && isMobile(navigator.userAgent);
         }
       }]);
 
