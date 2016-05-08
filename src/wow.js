@@ -124,17 +124,16 @@ const MutationObserver =
 const getComputedStyle = window.getComputedStyle ||
 function getComputedStyle(el) {
   const getComputedStyleRX = /(\-([a-z]){1})/g;
-  function getPropertyValue(prop) {
-    if (prop === 'float') { prop = 'styleFloat'; }
-    if (getComputedStyleRX.test(prop)) {
-      prop.replace(getComputedStyleRX, (_, _char) => _char.toUpperCase());
-    }
-    const { currentStyle } = el;
-    return (currentStyle != null ? currentStyle[prop] : void 0) || null;
-  }
-
-  this.getPropertyValue = getPropertyValue;
-  return this;
+  return {
+    getPropertyValue(prop) {
+      if (prop === 'float') { prop = 'styleFloat'; }
+      if (getComputedStyleRX.test(prop)) {
+        prop.replace(getComputedStyleRX, (_, _char) => _char.toUpperCase());
+      }
+      const { currentStyle } = el;
+      return (currentStyle != null ? currentStyle[prop] : void 0) || null;
+    },
+  };
 };
 
 export default class WOW {

@@ -189,22 +189,21 @@
   // getComputedStyle shim, from http://stackoverflow.com/a/21797294
   var getComputedStyle = window.getComputedStyle || function getComputedStyle(el) {
     var getComputedStyleRX = /(\-([a-z]){1})/g;
-    function getPropertyValue(prop) {
-      if (prop === 'float') {
-        prop = 'styleFloat';
-      }
-      if (getComputedStyleRX.test(prop)) {
-        prop.replace(getComputedStyleRX, function (_, _char) {
-          return _char.toUpperCase();
-        });
-      }
-      var currentStyle = el.currentStyle;
+    return {
+      getPropertyValue: function getPropertyValue(prop) {
+        if (prop === 'float') {
+          prop = 'styleFloat';
+        }
+        if (getComputedStyleRX.test(prop)) {
+          prop.replace(getComputedStyleRX, function (_, _char) {
+            return _char.toUpperCase();
+          });
+        }
+        var currentStyle = el.currentStyle;
 
-      return (currentStyle != null ? currentStyle[prop] : void 0) || null;
-    }
-
-    this.getPropertyValue = getPropertyValue;
-    return this;
+        return (currentStyle != null ? currentStyle[prop] : void 0) || null;
+      }
+    };
   };
 
   var WOW = function () {
