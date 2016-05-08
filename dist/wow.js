@@ -438,19 +438,19 @@
     }, {
       key: 'animationName',
       value: function animationName(box) {
-        var animationName = void 0;
+        var aName = void 0;
         try {
-          animationName = this.vendorCSS(box, 'animation-name').cssText;
+          aName = this.vendorCSS(box, 'animation-name').cssText;
         } catch (error) {
           // Opera, fall back to plain property value
-          animationName = getComputedStyle(box).getPropertyValue('animation-name');
+          aName = getComputedStyle(box).getPropertyValue('animation-name');
         }
 
-        if (animationName === 'none') {
+        if (aName === 'none') {
           return ''; // SVG/Firefox, unable to get animation name?
         }
 
-        return animationName;
+        return aName;
       }
     }, {
       key: 'cacheAnimationName',

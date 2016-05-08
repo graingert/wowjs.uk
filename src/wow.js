@@ -326,18 +326,18 @@ export default class WOW {
   }
 
   animationName(box) {
-    let animationName;
+    let aName;
     try {
-      animationName = this.vendorCSS(box, 'animation-name').cssText;
+      aName = this.vendorCSS(box, 'animation-name').cssText;
     } catch (error) { // Opera, fall back to plain property value
-      animationName = getComputedStyle(box).getPropertyValue('animation-name');
+      aName = getComputedStyle(box).getPropertyValue('animation-name');
     }
 
-    if (animationName === 'none') {
+    if (aName === 'none') {
       return '';  // SVG/Firefox, unable to get animation name?
     }
 
-    return animationName;
+    return aName;
   }
 
   cacheAnimationName(box) {
