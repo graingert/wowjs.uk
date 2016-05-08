@@ -1,10 +1,18 @@
 /*global module:false*/
+
 module.exports = function(grunt) {
-  mainTasks = ['babel', 'coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'uglify']
+  require('load-grunt-tasks')(grunt);
+  mainTasks = [
+    'eslint', 'babel', 'coffee', 'growl:coffee', 'jasmine', 'growl:jasmine',
+    'uglify',
+  ]
 
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    eslint: {
+      target: ['src/wow.js']
+    },
     uglify: {
       dist: {
         files: {
@@ -77,16 +85,7 @@ module.exports = function(grunt) {
     }
   });
 
-  // Lib tasks.
-  grunt.loadNpmTasks('grunt-growl');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-babel');
-
   grunt.registerTask('default', mainTasks);
-
   // Travis CI task.
-  grunt.registerTask('travis', ['babel', 'coffee', 'jasmine']);
+  grunt.registerTask('travis', ['eslint', 'babel', 'coffee', 'jasmine']);
 };
