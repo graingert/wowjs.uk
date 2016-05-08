@@ -1,7 +1,6 @@
 (function() {
   describe('WOW', function() {
-    var WOW, timeout, winHeight;
-    WOW = wow.WOW;
+    var timeout, winHeight;
     window.console = {
       warn: function() {}
     };

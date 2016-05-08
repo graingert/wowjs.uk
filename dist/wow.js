@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(['exports'], factory);
+    define(['module', 'exports'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports);
+    factory(module, exports);
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports);
-    global.wow = mod.exports;
+    factory(mod, mod.exports);
+    global.WOW = mod.exports;
   }
-})(this, function (exports) {
+})(this, function (module, exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -529,5 +529,5 @@
   }();
 
   exports.default = WOW;
-  exports.WOW = WOW;
+  module.exports = exports['default'];
 });
