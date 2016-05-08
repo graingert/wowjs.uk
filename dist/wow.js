@@ -41,107 +41,112 @@
     };
   }();
 
+  function isIn(needle, haystack) {
+    return haystack.indexOf(needle) >= 0;
+  }
+
+  var Util = function () {
+    function Util() {
+      _classCallCheck(this, Util);
+    }
+
+    _createClass(Util, [{
+      key: 'extend',
+      value: function extend(custom, defaults) {
+        for (var key in defaults) {
+          if (custom[key] == null) {
+            var value = defaults[key];
+            custom[key] = value;
+          }
+        }
+        return custom;
+      }
+    }, {
+      key: 'isMobile',
+      value: function isMobile(agent) {
+        return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
+        );
+      }
+    }, {
+      key: 'createEvent',
+      value: function createEvent(event) {
+        var bubble = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+        var cancel = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+        var detail = arguments.length <= 3 || arguments[3] === undefined ? null : arguments[3];
+
+        var customEvent = void 0;
+        if (document.createEvent != null) {
+          // W3C DOM
+          customEvent = document.createEvent('CustomEvent');
+          customEvent.initCustomEvent(event, bubble, cancel, detail);
+        } else if (document.createEventObject != null) {
+          // IE DOM < 9
+          customEvent = document.createEventObject();
+          customEvent.eventType = event;
+        } else {
+          customEvent.eventName = event;
+        }
+
+        return customEvent;
+      }
+    }, {
+      key: 'emitEvent',
+      value: function emitEvent(elem, event) {
+        if (elem.dispatchEvent != null) {
+          // W3C DOM
+          elem.dispatchEvent(event);
+        } else if (event in (elem != null)) {
+          elem[event]();
+        } else if ('on' + event in (elem != null)) {
+          elem['on' + event]();
+        }
+      }
+    }, {
+      key: 'addEvent',
+      value: function addEvent(elem, event, fn) {
+        if (elem.addEventListener != null) {
+          // W3C DOM
+          elem.addEventListener(event, fn, false);
+        } else if (elem.attachEvent != null) {
+          // IE DOM
+          elem.attachEvent('on' + event, fn);
+        } else {
+          // fallback
+          elem[event] = fn;
+        }
+      }
+    }, {
+      key: 'removeEvent',
+      value: function removeEvent(elem, event, fn) {
+        if (elem.removeEventListener != null) {
+          // W3C DOM
+          elem.removeEventListener(event, fn, false);
+        } else if (elem.detachEvent != null) {
+          // IE DOM
+          elem.detachEvent('on' + event, fn);
+        } else {
+          // fallback
+          delete elem[event];
+        }
+      }
+    }, {
+      key: 'innerHeight',
+      value: function innerHeight() {
+        if ('innerHeight' in window) {
+          return window.innerHeight;
+        }
+
+        return document.documentElement.clientHeight;
+      }
+    }]);
+
+    return Util;
+  }();
+
+  var _util = new Util();
+
   function fact() {
     var _class, _temp;
-
-    var Util = function () {
-      function Util() {
-        _classCallCheck(this, Util);
-      }
-
-      _createClass(Util, [{
-        key: 'extend',
-        value: function extend(custom, defaults) {
-          for (var key in defaults) {
-            var value = defaults[key];if (custom[key] == null) {
-              custom[key] = value;
-            }
-          }
-          return custom;
-        }
-      }, {
-        key: 'isMobile',
-        value: function isMobile(agent) {
-          return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
-          );
-        }
-      }, {
-        key: 'createEvent',
-        value: function createEvent(event) {
-          var bubble = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-          var cancel = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
-          var detail = arguments.length <= 3 || arguments[3] === undefined ? null : arguments[3];
-
-          if (document.createEvent != null) {
-            // W3C DOM
-            var customEvent = document.createEvent('CustomEvent');
-            customEvent.initCustomEvent(event, bubble, cancel, detail);
-          } else if (document.createEventObject != null) {
-            // IE DOM < 9
-            var customEvent = document.createEventObject();
-            customEvent.eventType = event;
-          } else {
-            customEvent.eventName = event;
-          }
-
-          return customEvent;
-        }
-      }, {
-        key: 'emitEvent',
-        value: function emitEvent(elem, event) {
-          if (elem.dispatchEvent != null) {
-            // W3C DOM
-            elem.dispatchEvent(event);
-          } else if (event in (elem != null)) {
-            var evt = elem[event];
-            evt();
-          } else if ('on' + event in (elem != null)) {
-            var evt = elem['on' + event];
-            evt();
-          }
-          return undefined;
-        }
-      }, {
-        key: 'addEvent',
-        value: function addEvent(elem, event, fn) {
-          if (elem.addEventListener != null) {
-            // W3C DOM
-            return elem.addEventListener(event, fn, false);
-          } else if (elem.attachEvent != null) {
-            // IE DOM
-            return elem.attachEvent('on' + event, fn);
-          } else {
-            // fallback
-            return elem[event] = fn;
-          }
-        }
-      }, {
-        key: 'removeEvent',
-        value: function removeEvent(elem, event, fn) {
-          if (elem.removeEventListener != null) {
-            // W3C DOM
-            return elem.removeEventListener(event, fn, false);
-          } else if (elem.detachEvent != null) {
-            // IE DOM
-            return elem.detachEvent('on' + event, fn);
-          } else {
-            // fallback
-            return delete elem[event];
-          }
-        }
-      }, {
-        key: 'innerHeight',
-        value: function innerHeight() {
-          if ('innerHeight' in window) {
-            return window.innerHeight;
-          } else {
-            return document.documentElement.clientHeight;
-          }
-        }
-      }]);
-
-      return Util;
-    }();
 
     // Minimalistic WeakMap shim, just in case.
     var WeakMap = this.WeakMap || this.MozWeakMap || function () {
@@ -161,6 +166,7 @@
               return this.values[i];
             }
           }
+          return undefined;
         }
       }, {
         key: 'set',
@@ -169,11 +175,12 @@
             var item = this.keys[i];
             if (item === key) {
               this.values[i] = value;
-              return;
+              return this;
             }
           }
           this.keys.push(key);
-          return this.values.push(value);
+          this.values.push(value);
+          return this;
         }
       }]);
 
@@ -200,9 +207,9 @@
     }(), _class.notSupported = true, _temp);
 
     // getComputedStyle shim, from http://stackoverflow.com/a/21797294
-    var getComputedStyle = this.getComputedStyle || function (el, pseudo) {
-      this.getPropertyValue = function (prop) {
-        var getComputedStyleRX = /(\-([a-z]){1})/g;
+    var getComputedStyle = this.getComputedStyle || function getComputedStyle(el) {
+      var getComputedStyleRX = /(\-([a-z]){1})/g;
+      function getPropertyValue(prop) {
         if (prop === 'float') {
           prop = 'styleFloat';
         }
@@ -214,7 +221,9 @@
         var currentStyle = el.currentStyle;
 
         return (currentStyle != null ? currentStyle[prop] : void 0) || null;
-      };
+      }
+
+      this.getPropertyValue = getPropertyValue;
       return this;
     };
 
@@ -234,19 +243,18 @@
           scrollContainer: null
         };
 
-        this.animate = function () {
+        this.animate = function animateFactory() {
           if ('requestAnimationFrame' in window) {
             return function (callback) {
               return window.requestAnimationFrame(callback);
             };
-          } else {
-            return function (callback) {
-              return callback();
-            };
           }
+          return function (callback) {
+            return callback();
+          };
         }();
 
-        this.vendors = ["moz", "webkit"];
+        this.vendors = ['moz', 'webkit'];
 
         this.start = this.start.bind(this);
         this.resetAnimation = this.resetAnimation.bind(this);
@@ -266,12 +274,12 @@
         key: 'init',
         value: function init() {
           this.element = window.document.documentElement;
-          if (__in__(document.readyState, ["interactive", "complete"])) {
+          if (isIn(document.readyState, ['interactive', 'complete'])) {
             this.start();
           } else {
             this.util().addEvent(document, 'DOMContentLoaded', this.start);
           }
-          return this.finished = [];
+          this.finished = [];
         }
       }, {
         key: 'start',
@@ -297,7 +305,7 @@
             this.interval = setInterval(this.scrollCallback, 50);
           }
           if (this.config.live) {
-            return new MutationObserver(function (records) {
+            var mut = new MutationObserver(function (records) {
               for (var j = 0; j < records.length; j++) {
                 var record = records[j];
                 for (var k = 0; k < record.addedNodes.length; k++) {
@@ -306,7 +314,8 @@
                 }
               }
               return undefined;
-            }).observe(document.body, {
+            });
+            mut.observe(document.body, {
               childList: true,
               subtree: true
             });
@@ -319,14 +328,14 @@
           this.util().removeEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
           this.util().removeEvent(window, 'resize', this.scrollHandler);
           if (this.interval != null) {
-            return clearInterval(this.interval);
+            clearInterval(this.interval);
           }
         }
       }, {
         key: 'sync',
-        value: function sync(element) {
+        value: function sync() {
           if (MutationObserver.notSupported) {
-            return this.doSync(this.element);
+            this.doSync(this.element);
           }
         }
       }, {
@@ -342,7 +351,7 @@
           var iterable = element.querySelectorAll('.' + this.config.boxClass);
           for (var i = 0; i < iterable.length; i++) {
             var box = iterable[i];
-            if (!__in__(box, this.all)) {
+            if (!isIn(box, this.all)) {
               this.boxes.push(box);
               this.all.push(box);
               if (this.stopped || this.disabled()) {
@@ -353,7 +362,6 @@
               this.scrolled = true;
             }
           }
-          return undefined;
         }
       }, {
         key: 'show',
@@ -399,7 +407,7 @@
         value: function resetAnimation(event) {
           if (event.type.toLowerCase().indexOf('animationend') >= 0) {
             var target = event.target || event.srcElement;
-            return target.className = target.className.replace(this.config.animateClass, '').trim();
+            target.className = target.className.replace(this.config.animateClass, '').trim();
           }
         }
       }, {
@@ -427,13 +435,15 @@
         key: 'vendorSet',
         value: function vendorSet(elem, properties) {
           for (var name in properties) {
-            var value = properties[name];
-            elem['' + name] = value;
-            for (var i = 0; i < this.vendors.length; i++) {
-              var vendor = this.vendors[i];elem['' + vendor + name.charAt(0).toUpperCase() + name.substr(1)] = value;
+            if (properties.hasOwnProperty(name)) {
+              var value = properties[name];
+              elem['' + name] = value;
+              for (var i = 0; i < this.vendors.length; i++) {
+                var vendor = this.vendors[i];
+                elem['' + vendor + name.charAt(0).toUpperCase() + name.substr(1)] = value;
+              }
             }
           }
-          return undefined;
         }
       }, {
         key: 'vendorCSS',
@@ -441,24 +451,27 @@
           var style = getComputedStyle(elem);
           var result = style.getPropertyCSSValue(property);
           for (var i = 0; i < this.vendors.length; i++) {
-            var vendor = this.vendors[i];result = result || style.getPropertyCSSValue('-' + vendor + '-' + property);
+            var vendor = this.vendors[i];
+            result = result || style.getPropertyCSSValue('-' + vendor + '-' + property);
           }
           return result;
         }
       }, {
         key: 'animationName',
         value: function animationName(box) {
+          var animationName = void 0;
           try {
-            var animationName = this.vendorCSS(box, 'animation-name').cssText;
+            animationName = this.vendorCSS(box, 'animation-name').cssText;
           } catch (error) {
             // Opera, fall back to plain property value
-            var animationName = getComputedStyle(box).getPropertyValue('animation-name');
+            animationName = getComputedStyle(box).getPropertyValue('animation-name');
           }
+
           if (animationName === 'none') {
             return ''; // SVG/Firefox, unable to get animation name?
-          } else {
-              return animationName;
-            }
+          }
+
+          return animationName;
         }
       }, {
         key: 'cacheAnimationName',
@@ -475,7 +488,7 @@
       }, {
         key: 'scrollHandler',
         value: function scrollHandler() {
-          return this.scrolled = true;
+          this.scrolled = true;
         }
       }, {
         key: 'scrollCallback',
@@ -495,7 +508,7 @@
             }
             this.boxes = results;
             if (!this.boxes.length && !this.config.live) {
-              return this.stop();
+              this.stop();
             }
           }
         }
@@ -509,7 +522,8 @@
             element = element.parentNode;
           }
           var top = element.offsetTop;
-          while (element = element.offsetParent) {
+          while (element.offsetParent) {
+            element = element.offsetParent;
             top += element.offsetTop;
           }
           return top;
@@ -528,7 +542,7 @@
       }, {
         key: 'util',
         value: function util() {
-          return this._util != null ? this._util : this._util = new Util();
+          return _util;
         }
       }, {
         key: 'disabled',
@@ -539,10 +553,6 @@
 
       return WOW;
     }();
-
-    function __in__(needle, haystack) {
-      return haystack.indexOf(needle) >= 0;
-    }
 
     return WOW;
   }
