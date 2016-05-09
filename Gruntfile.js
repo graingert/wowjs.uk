@@ -3,8 +3,8 @@
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   mainTasks = [
-    'eslint', 'babel', 'coffee', 'growl:coffee', 'jasmine', 'growl:jasmine',
-    'uglify',
+    'eslint', 'babel', 'coffee', 'growl:coffee', 'uglify', 'jasmine',
+    'growl:jasmine',
   ]
 
   // Project configuration.
@@ -16,15 +16,15 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>'
+          'dist/wow.min.js': 'dist/wow.js'
         }
       },
       options: {
-        banner : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+        banner : '/*! <%= pkg.title %> wow.js - v<%= pkg.version %> - ' +
           '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
           '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-          '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-          ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */',
+          '* Copyright (c) <%= grunt.template.today("yyyy") %> Thomas Grainger;' +
+          ' Licensed <%= pkg.license %> */',
         report: 'gzip'
       }
     },
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>'],
+      src     : ['spec/javascripts/libs/*.js', 'dist/wow.min.js'],
       options : {
         specs   : 'spec/javascripts/**/*.js',
         helpers : 'spec/javascripts/helpers/**/*.js'
@@ -90,5 +90,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', mainTasks);
   // Travis CI task.
-  grunt.registerTask('travis', ['eslint', 'babel', 'coffee', 'jasmine']);
+  grunt.registerTask('travis', ['eslint', 'babel', 'coffee', 'uglify', 'jasmine']);
 };
