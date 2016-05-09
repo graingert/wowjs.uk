@@ -1,32 +1,30 @@
-# WOW.js [![Build Status](https://secure.travis-ci.org/matthieua/WOW.svg?branch=master)](http://travis-ci.org/matthieua/WOW)
+# WOW.js [![Build Status](https://secure.travis-ci.org/graingert/WOW.svg?branch=master)](http://travis-ci.org/graingert/WOW)
 
 Reveal CSS animation as you scroll down a page.
 By default, you can use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
 But you can easily change the settings to your favorite animation library.
 
 Advantages:
+- 100% MIT Licensed, not GPL keep your code yours.
+- Naturally Caffeine free
 - Smaller than other JavaScript parallax plugins, like Scrollorama (they do fantastic things, but can be too heavy for simple needs)
 - Super simple to install, and works with animate.css, so if you already use it, that will be very fast to setup
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
 
-Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
-
-### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
+### [LIVE DEMO ➫](https://graingert.co.uk/WOW/)
 
 ## Live examples
 - [MaterialUp](http://www.materialup.com)
 - [Fliplingo](https://www.fliplingo.com)
 - [Streamline Icons](http://www.streamlineicons.com)
 - [Microsoft Stories](http://www.microsoft.com/en-us/news/stories/garage/)
-- [Box Notes](https://www.box.com/notes/)
-- [Popcorn Time](http://popcorn-time.se/)
 
-## Version
-
-1.1.2
 
 ## Documentation
+
+It just take seconds to install and use WOW.js!
+[Read the documentation ➫](https://graingert.co.uk/WOW/docs.html)
 
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
@@ -123,20 +121,20 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please report it [here on Github](https://github.com/matthieua/WOW/issues)!
+If you find a bug, please report it [here on Github](https://github.com/graingert/WOW/issues)!
 
 ## Developer
 
-Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.com)
+Originally Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.com)
+Forked to remain under the MIT license by Thomas Grainger, https://graingert.co.uk
 
-+ [@mattaussaguel](//twitter.com/mattaussaguel)
-+ [Github Profile](//github.com/matthieua)
++ [Github Profile](//github.com/graingert)
 
 ## Contributors
 
 Thanks to everyone who has contributed to the project so far:
 
 - Attila Oláh - [@attilaolah](//twitter.com/attilaolah) - [Github Profile](//github.com/attilaolah)
-- [and many others](//github.com/matthieua/WOW/graphs/contributors)
+- [and many others](//github.com/graingert/WOW/graphs/contributors)
 
 Initiated and designed by [Vincent Le Moign](//www.webalys.com/), [@webalys](//twitter.com/webalys)

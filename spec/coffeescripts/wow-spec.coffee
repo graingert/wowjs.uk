@@ -1,5 +1,4 @@
 describe 'WOW', ->
-  WOW = wow.WOW
 
   # Supress warnings:
   window.console =
