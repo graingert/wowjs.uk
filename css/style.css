@@ -461,6 +461,14 @@ p {
   visibility: hidden;
 }
 
+.forced {
+  color: #a94442;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  font-size: xx-large;
+  padding: 15px;
+}
+
 .pricing a {
   padding-top:   20px;
   display:       block;
