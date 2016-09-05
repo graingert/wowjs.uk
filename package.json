@@ -1,11 +1,11 @@
 {
   "name": "wow.js",
   "title": "WOW",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "dist/wow.js",
   "description": "",
   "keywords": [],
-  "homepage": "https://graingert.co.uk/WOW/",
+  "homepage": "https://wowjs.uk",
   "contributors": [
     {
       "name": "Matthieu Aussaguel",
