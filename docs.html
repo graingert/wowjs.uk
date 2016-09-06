@@ -1,23 +1,24 @@
 ---
 layout: default
+title: wow.js — Documentation
 ---
     <div class="container-white">
       <div class="container">
         <div class="row">
-          <div class="span12 wow fadeInDown top__element">
-            <img src="img/doc.jpg" />
-          </div>
+          <h1 class="span12 wow fadeInDown top__element">
+            <img src="img/doc.jpg" alt="wow.js Documentation" >
+          </h1>
         </div>
         <div class="row">
           <div class="span12">
-            <h1>Setup WOW.js</h1>
+            <h2>Setup wow.js</h2>
             <h3>
               <div class="pill">1 </div>Link to the CSS animation library
             </h3>
-            <p>Link to <a href="http://daneden.github.io/animate.css/" title="Animate.css" target="_blank">Animate.css </a><br><i class="small">(You can link to another CSS animation library by changing WOW.js settings)</i><br></p>
+            <p>Link to <a href="http://daneden.github.io/animate.css/" title="Animate.css" target="_blank">Animate.css </a><br><i class="small">(You can link to another CSS animation library by changing wow.js settings)</i><br></p>
             <pre>&lt;link rel="stylesheet" href="css/animate.css"&gt;</pre>
             <h3>
-              <div class="pill">2 </div>Link and activate WOW.js
+              <div class="pill">2 </div>Link and activate wow.js
 
             </h3>
             <pre>
@@ -25,7 +26,7 @@ layout: default
               &lt;script&gt;
               new WOW().init();
               &lt;/script&gt;</pre>
-              <h1>Reveal CSS Animations</h1>
+              <h2>Reveal CSS Animations</h2>
               <h3>
                 <div class="pill">1 </div>Make an element revealable
               </h3>
@@ -42,15 +43,15 @@ layout: default
                   &lt;div class="wow bounceInUp"&gt;
                   Content to Reveal Here
                   &lt;/div&gt;</pre>
-                  <h1>You’re done! </h1>
+                  <h2>You’re done! </h2>
                   <p><strong>Now your animations will be revealed when the user scrolls.</strong></p>
-                  <p>Check these examples of WOW.js + Animate.css uses:	<br><br>
+                  <p>Check these examples of wow.js + Animate.css uses:	<br><br>
                     <a href="http://www.materialup.com/" title="Daily Material Design Inspiration - MaterialUp" target="_blank">* MaterialUp </a><br>
                     <a href="https://www.fliplingo.com/" title="Fliplingo - Translation Automated on Twitter" target="_blank">* Fliplingo </a><br>
                     <a href="http://www.streamlineicons.com/" title="Streamline Icons - iOS7 Icons" target="_blank">* Streamline Icons </a>
                   </p>
 
-                  <h1>Advanced Options</h1>
+                  <h2>Advanced Options</h2>
                   <p><strong>data-wow-duration: </strong>Change the animation duration<br><strong>data-wow-delay: </strong>Delay before the animation starts<br><strong>data-wow-offset: </strong>Distance to start the animation (related to the browser bottom)<br><strong>data-wow-iteration: </strong>Number of times the animation is repeated<br><br></p>
                   <pre>
                     &lt;section class="wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s"&gt;
@@ -58,11 +59,11 @@ layout: default
 
                     &lt;section class="wow slideInRight" data-wow-offset="10"  data-wow-iteration="10"&gt;
                     &lt;/section&gt;</pre>
-                    <h1>Customize Settings</h1>
+                    <h2>Customize Settings</h2>
                     <p><strong>boxClass: </strong>Class name that reveals the hidden box when user scrolls.</p>
                     <p><strong>animateClass: </strong>Class name that triggers the CSS animations (’animated’ by default for the animate.css library)</p>
                     <p><strong>offset: </strong>Define the distance between the bottom of browser viewport and the top of hidden box.<br>When the user scrolls and reach this distance the hidden box is revealed. </p>
-                    <p><strong>mobile: </strong>Turn on/off WOW.js on mobile devices. </p>
+                    <p><strong>mobile: </strong>Turn on/off wow.js on mobile devices. </p>
                     <p><strong>live: </strong>consatantly check for new WOW elements on the page. </p><br>
                     <pre>
                       wow = new WOW(
