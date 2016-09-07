@@ -229,6 +229,10 @@ textarea {
   width: 220px;
 }
 
+.span2 {
+  width: 140px;
+}
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -265,6 +269,15 @@ li {
   list-style-type: none;
   list-style-position: inside;
   line-height: 1em;
+}
+
+.spiel {
+  padding-top: 24px;
+  margin:      0 0 0 0;
+  display:     inline-block;
+  font-size:   18px;
+  line-height: 28px;
+  font-weight: bold;
 }
 
 h2 {
